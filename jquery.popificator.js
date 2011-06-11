@@ -56,16 +56,17 @@ $(document)
 		// cuando no se quieran los defaults, settear el attributo "data-popup-no-defaults"
 		if(typeof($(this).attr("data-popup-no-defaults"))=="undefined")
 		{
-			a_extras["location"] 		= 0;
+			a_extras["location"] 	= 1;
 			a_extras["directories"]	= 0;
-			a_extras["status"] 			= 0;
-			a_extras["menubar"] 		= 0;
+			a_extras["status"] 		= 0;
+			a_extras["menubar"] 	= 0;
+			a_extras["toolbar"] 	= 0;
 			a_extras["scrollbars"] 	= 1;
 			a_extras["resizable"] 	= 1;
-			a_extras["width"] 			= 600;
-			a_extras["height"] 			= 600;
-			a_extras["left"] 				= 50;
-			a_extras["top"] 				= 40;
+			a_extras["width"] 		= 600;
+			a_extras["height"] 		= 600;
+			a_extras["left"] 		= 50;
+			a_extras["top"] 		= 40;
 		}
 
 		if(typeof($(this).attr("data-popup-width"))!="undefined")
@@ -84,6 +85,18 @@ $(document)
 		{
 			a_extras["left"] = $(this).attr("data-popup-left");
 		}
+		if(typeof($(this).attr("data-popup-scrollbars"))!="undefined")
+		{
+			a_extras["scrollbars"] = $(this).attr("data-popup-scrollbars");
+		}
+		if(typeof($(this).attr("data-popup-menubar"))!="undefined")
+		{
+			a_extras["menubar"] = $(this).attr("data-popup-menubar");
+		}
+		if(typeof($(this).attr("data-popup-toolbar"))!="undefined")
+		{
+			a_extras["toolbar"] = $(this).attr("data-popup-toolbar");
+		}
 		//... need to put the rest here...
 
 
@@ -91,10 +104,15 @@ $(document)
 		recursive_param(a_pairs,a_extras,"");
 		var s_args_joined = a_pairs.join(', ');
 
+		var s_href = $(this).attr("href");
+		if(typeof($(this).attr("data-popup-href"))!="undefined")
+		{
+			s_href = $(this).attr("data-popup-href");
+		}
 
-		//console.log([$(this).attr("href")+"&popup=1",$(this).attr("data-popup-name"),a_extras,a_pairs,s_args_joined]);
+		//console.log([$(this).attr("href"),$(this).attr("data-popup-name"),a_extras,a_pairs,s_args_joined]);
 
-		var tmp_ventana = window.open($(this).attr("href")+"&popup=1",$(this).attr("data-popup-name"),s_args_joined);
+		var tmp_ventana = window.open(s_href,$(this).attr("data-popup-name"),s_args_joined);
 		setTimeout(function()
 		{
 			tmp_ventana.focus();
